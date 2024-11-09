@@ -6,7 +6,7 @@
 def main():
     ## First defining the starting status, where you have 200hp, nothing in the inventory, ...
     hp = 200 # This is starting hp, this might process during the game
-    Inventory = []
+    Inventory = [] # This is a list for the inventory
 
     # Introduction
     print("Hello warrior, welcome")
@@ -17,6 +17,16 @@ def main():
         else:
             hello(name)
             break
+
+    # Choosing a starter weapon:
+    print("\nSo warrior, first it's time to choose your starter weapon, you have three options:")
+    theSword()
+    print("\nOR\n")
+    theBow()
+    firstWeapon = input("\nPlease, choose your first weapon ")
+    Inventory.append(firstWeapon)
+    print(Inventory)
+
     
     # let them choose between three starter weapons
 
@@ -49,6 +59,33 @@ def hello(to):
 
 ### class of weapons with there damage
 # Sword
+def theSword():
+    print(f" This is the SWORD!!!\n","*"*20,"\n")
+    n=4 # first part spaces
+    m=0 # second part spaces
+    print(" "*5,"**")
+    for i in range(15):
+        # point of the sword
+        if i < 2:
+            print(" "*n,"*"," "*m*2,"*") # end is to print on same line without moving to the next
+            n-=1
+            m+=1
+        # the handle, i can think i can do this part better with only one if statement!!!!!!!!!!, so this is a TODO
+        elif i == 8:
+            print("*"*14)
+        elif 8 < i < 10:
+            print("*", " "*10, "*")
+        elif i == 10:
+            print("*"*14)
+        # end of the sword
+        elif i == 14:
+            print(" "*n, "*"*8)
+        # the inbetween of the sword, idk what it's called and also part of the handle
+        else:
+            print(" "*n,"*"," "*m*2,"*")
+
+        
+
 def swordDamage():
     while True:
         attackType = input("Choose your attacktype ")
@@ -62,6 +99,20 @@ def swordDamage():
             print("This is not an attacktype")
             continue
         return damage
+    
+# Bow
+def theBow():
+    print(f" This is the BOW!!!\n","*"*18,"\n")
+    print("*"*3)
+    for i in range(0, 7, +1):
+        print("*"," "*i, "*")
+    print("*"," "*7,"*")
+    for i in range(7,-1,-1):
+        print("*"," "*i, "*")
+    print("*"*3)
+
+
+
 
 
 
