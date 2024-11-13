@@ -2,6 +2,8 @@
 
 """ In this program, i will write a game that is executed in the terminal.
 """
+import os
+import random
 
 def main():
     ## First defining the starting status, where you have 200hp, nothing in the inventory, ...
@@ -21,6 +23,7 @@ def main():
     # Choosing a starter weapon:
     print("\nSo warrior, first it's time to choose your starter weapon, you have two options:")
     theSword()
+    os.system("sleep 2") # give time to look at the beautifull sword
     print("\nOR\n")
     theBow()
     while True:
@@ -28,14 +31,31 @@ def main():
         if firstWeapon != "bow" and firstWeapon != "sword":
             print("You might get hurt doing that, please use a sword or a bow")
             continue
-        else:
-            Inventory.append(firstWeapon)
-            break
+        elif firstWeapon == "sword":
+            answer = input("The normal attack deals 25hp damage with 100% accuracy while the special attack deals 50hp damage with 50% accuracy."
+                            "Are you sure you want to choose this weapon? Then press y: ")
+            if answer == "y":
+                Inventory.append(firstWeapon)
+                break
+            else:
+                print("I guess you still have to think about your awnser")
+                continue
+        elif firstWeapon == "bow":
+            answer = input("The normal attack deals 15hp damage with 100% accuracy while the special attack deals 70hp damage with 50% accuracy."
+                            "Are you sure you want to choose this weapon? Then press y: ")
+            if answer == "y":
+                Inventory.append(firstWeapon)
+                break
+            else:
+                print("Brrooo, don't be indecisive and just choose!!!")
+                continue
+            
     print(f"You have a {firstWeapon} in your inventory: ",Inventory)
-
+    
+    reset()
 
     # A fight, you have two attacks as starter, the normal(low damage, 100% hit chance) and special attack(high damage, 50% hit damage, code this like flipping a coin)
-    print("Let's do some battling!!!")            
+    print("Let's do some battling!!!")           
     enemyhp = 150
     while hp > 0 and enemyhp > 0:
         if Inventory[0] == "sword":
@@ -57,6 +77,8 @@ def main():
         elif enemyhp <= 0:
             print(f"Congratulations {name}, you killed the enemy!!!")    
     
+    reset()
+
     # After this battle, your hp is probably low, so now we let the player go to somewhere where he can play a game and get something in return like hp
     print(f"Oh no, you only have {hp}hp left!\n"
             "I know something! let's go to a magician, he can give you some health")
@@ -71,6 +93,11 @@ def main():
 # Says hello to the warrior
 def hello(to):
    print("Hello ", to)
+
+# resetting the terminal
+def reset():
+    os.system("sleep 3") # Sleep 3 seconds before clearing
+    os.system("clear") # to clear the terminal
 
 ### class of weapons with there damage
 # Sword
@@ -97,17 +124,24 @@ def theSword():
 
 def swordDamage():
     while True:
-        attackType = input("Choose your attacktype ")
+        attackType = input("\nChoose your attacktype ")  
         if attackType == "normal":
-            #print("normal")
             damage = 25
+            break
         elif attackType == "special":   # I still have to make the special attack have accuracy of 50% with the random()....
-            #print("special")
-            damage = 50
+            accuracyList = ["hit","miss"]
+            accuracy = random.choice(accuracyList)
+            if accuracy == "hit":
+                damage = 50
+                break
+            elif accuracy == "miss":
+                print("Guess you missed noob, learn how to aim next time")
+                damage = 0
+                break
         else:
-            print("This is not an attacktype")
+            print("This is not an attacktype, choose between a \"normal\" or \"special\" attack")
             continue
-        return damage
+    return damage
     
 # Bow
 def theBow():
@@ -119,20 +153,29 @@ def theBow():
     for i in range(7,-1,-1):
         print("*"," "*i, "*")
     print("*"*3)
+    
 # The bow does less normal damage but a higher special attack damage
 def bowDamage():
     while True:
-        attackType = input("Choose your attacktype ")
+        attackType = input("\nChoose your attacktype ")  
         if attackType == "normal":
-            #print("normal")
             damage = 15
+            break
         elif attackType == "special":   # I still have to make the special attack have accuracy of 50% with the random()....
-            #print("special")
-            damage = 70
+            accuracyList = ["hit","miss"]
+            accuracy = random.choice(accuracyList)
+            if accuracy == "hit":
+                damage = 70
+                break
+            elif accuracy == "miss":
+                print("Guess you missed noob, learn how to aim next time")
+                damage = 0
+                break
         else:
-            print("This is not an attacktype")
+            print("This is not an attacktype, choose between a \"normal\" or \"special\" attack")
             continue
-        return damage
+    return damage
+    
 
 
 
